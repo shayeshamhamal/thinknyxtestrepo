@@ -1,0 +1,31 @@
+me: This playbook is for docker
+  hosts: localhost
+  connection: local
+
+  tasks:
+    -
+      name: remove pakages fro pre-req
+      yum:
+        name:
+          - docker
+          - docker-client
+          - docker-client-latest
+          - docker-common
+          - docker-latest
+          - docker-latest-logrotate
+          - docker-logrotate
+          - docker-engine
+        state: absent
+
+    -
+      name: To insatll docker pakages
+      yum:
+        name: yum-utils
+        state: present
+
+    -
+      name: docker repository
+      get_url:
+        dest: /etc/yum.repos.d/docker-ce.repo
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+
